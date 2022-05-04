@@ -38,24 +38,12 @@ export class ScrabbleDatabase {
         word varchar(30),
         score integer
       );
-      
-      insert into 
-        word(player, word, score) 
-      values 
-        ('Artemis', 'hold', 10),
-        ('Mia', 'holder', 22);
-
 
       create table if not exists game (
         player varchar(30) primary key,
         score integer
       );
-       
-      insert into 
-        game(player, score) 
-      values 
-        ('Artemis', 10),
-        ('Mia', 22);  
+        
     `;
     const res = await this.client.query(queryText);
   }
