@@ -1,11 +1,13 @@
 // import * as http from 'http';
 // import * as url from 'url';
 // import { readFile, writeFile } from 'fs/promises';
-
+//require('dotenv').config();
 import express from 'express';
 import { readFile, writeFile } from 'fs/promises';
 // SOLUTION BEGIN
 import logger from 'morgan';
+import 'dotenv/config';
+import { ScrabbleDatabase } from './wordDatabase';
 // SOLUTION END
 /** TEMPLATE BEGIN
 TODO: import the morgan middleware from 'morgan'
@@ -13,6 +15,8 @@ TEMPLATE END */
 
 const WORD_SCORE_FILE = 'word-scores.json';
 const GAME_SCORE_FILE = 'game-scores.json';
+
+const database = new ScrabbleDatabase(process.env.DATABASE_URL);
 
 // Returns a function that will read a score file.
 function readScoreFile(path) {
@@ -31,6 +35,7 @@ function readScoreFile(path) {
 // Create functions for reading from score files.
 const readWordScores = readScoreFile(WORD_SCORE_FILE);
 const readGameScores = readScoreFile(GAME_SCORE_FILE);
+
 
 // Returns a function that will save a word score to a word score file.
 function saveToWordScoreFile(path) {
@@ -57,14 +62,14 @@ const saveWordScore = saveToWordScoreFile(WORD_SCORE_FILE);
 const saveGameScore = saveToGameScoreFile(GAME_SCORE_FILE);
 
 async function top10WordScores() {
-  const scores = await readWordScores();
+  const scores = await database.readAllWords(); // readWordScores();
   const sorted = scores.sort((a, b) => b.score - a.score);
   const top = sorted.slice(0, 10);
   return top;
 }
 
 async function top10GameScores() {
-  const scores = await readGameScores();
+  const scores = await database.readAllGames(); // readGameScores();
   const sorted = scores.sort((a, b) => b.score - a.score);
   const top = sorted.slice(0, 10);
   return top;
@@ -86,27 +91,38 @@ TODO: Add the morgan middleware to the app.
 TODO: Add the express.static middleware to the app. 
  TEMPLATE END */
 
+
 // SOLUTION BEGIN
 app.post('/wordScore', async (request, response) => {
+  await database.connect();
   const { name, word, score } = request.body;
-  await saveWordScore(name, word, score);
+  let value = await database.createWord(name, word, score);
+  //await saveWordScore(name, word, score);
   response.status(200).json({ status: 'success' });
+  await database.close();
 });
 
 app.get('/highestWordScores', async (request, response) => {
+  await database.connect();
   const scores = await top10WordScores();
   response.status(200).json(scores);
+  await database.close();
 });
 
 app.post('/gameScore', async (request, response) => {
+  await database.connect();
   const { name, score } = request.body;
-  await saveGameScore(name, score);
+  let value = await database.createGame(name, score);
+  //await saveGameScore(name, score);
   response.status(200).json({ status: 'success' });
+  await database.close();
 });
 
 app.get('/highestGameScores', async (request, response) => {
+  await database.connect();
   const scores = await top10GameScores();
   response.status(200).json(scores);
+  await database.close();
 });
 
 // This matches all routes that are not defined.
