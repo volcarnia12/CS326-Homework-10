@@ -14,7 +14,6 @@ TODO: import the morgan middleware from 'morgan'
 TEMPLATE END */
 
 
-
 class ScrabbleServer {
   constructor(dburl) {
     this.dburl = dburl;
@@ -22,58 +21,50 @@ class ScrabbleServer {
     this.app.use('/', express.static('client'));
   }
 
-  async top10WordScores() {
-    const scores = await this.db.readAllWords(); // readWordScores();
-    const sorted = scores.sort((a, b) => b.score - a.score);
-    const top = sorted.slice(0, 10);
-    return top;
-  }
-  
-  async top10GameScores() {
-    const scores = await this.db.readAllGames(); // readGameScores();
-    //console.log(scores);
-    const sorted = scores.sort((a, b) => b.score - a.score);
-    const top = sorted.slice(0, 10);
-    return top;
-  }
-
   async initRoutes() {
     // Note: when using arrow functions, the "this" binding is lost.
     const self = this;
 
-    this.app.post('/wordScore', async (request, response) => {
-      //await database.connect();
-      const { name, word, score } = request.body;
-      await this.db.createWord(name, word, score);
-      //await saveWordScore(name, word, score);
-      response.status(200).json({ status: 'success' });
-      //await database.close();
+    this.app.post('/wordScore', async (req, res) => {
+      try {
+        const { name, word, score} = req.query;
+        const person = await self.db.createWord(name, word, score);
+        res.send(JSON.stringify(person));
+      } catch (err) {
+        res.status(500).send(err);
+      }
     });
 
-    this.app.get('/highestWordScores', async (request, response) => {
-      const scores = await top10WordScores();
-      response.status(200).json(scores);
+    this.app.post('/gameScore', async (req, res) => {
+      try {
+        const { name, score } = req.query;
+        const person = await self.db.createWord(name, score);
+        res.send(JSON.stringify(person));
+      } catch (err) {
+        res.status(500).send(err);
+      }
     });
 
-    this.app.post('/gameScore', async (request, response) => {
-      //await database.connect();
-      const { name, score } = request.body;
-      await this.db.createGame(name, score);
-      //await saveGameScore(name, score);
-      response.status(200).json({ status: 'success' });
-      //await database.close();
+    this.app.get('/highestWordScores', async (req, res) => {
+      try {
+        //const { id } = req.query;
+        const person = await self.db.highestWordScores();
+        res.send(JSON.stringify(person));
+      } catch (err) {
+        res.status(500).send(err);
+      }
     });
 
-    this.app.get('/highestGameScores', async (request, response) => {
-      //await database.connect();
-      const scores = await top10GameScores();
-      response.status(200).json(scores);
-      //await database.close();
+    this.app.get('/highestGameScores', async (req, res) => {
+      try {
+        //const { id } = req.query;
+        const person = await self.db.highestGameScores();
+        res.send(JSON.stringify(person));
+      } catch (err) {
+        res.status(500).send(err);
+      }
     });
 
-    this.app.all('*', async (request, response) => {
-      response.status(404).send(`Not found: ${request.path}`);
-    });
   }
 
   async initDb() {

@@ -123,4 +123,16 @@ export class ScrabbleDatabase {
     const res = await this.client.query(queryText);
     return res.rows;
   }
+
+  async highestWordScores(){
+    const queryText = 'SELECT TOP 10 * FROM word ORDER BY score DESC';
+    const res = await this.client.query(queryText);
+    return res.rows;
+  }
+
+  async highestGameScores(){
+    const queryText = 'SELECT TOP 10 * FROM game ORDER BY score DESC';
+    const res = await this.client.query(queryText);
+    return res.rows;
+  }
 }
