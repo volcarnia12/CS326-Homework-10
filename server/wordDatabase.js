@@ -38,8 +38,7 @@ export class ScrabbleDatabase {
         word varchar(30),
         score integer
       );
-    `;
-    const queryText2 = `
+    
       create table if not exists game (
         player varchar(30),
         score integer
@@ -64,9 +63,9 @@ export class ScrabbleDatabase {
   }
 
   async createGame(player, score) {
-    const queryText2 =
+    const queryText =
       'INSERT INTO game (player,score) VALUES ($1, $2) RETURNING *';
-    const res = await this.client.query(queryText2, [player,score]);
+    const res = await this.client.query(queryText, [player,score]);
     return res.rows;
   }
 
@@ -78,8 +77,8 @@ export class ScrabbleDatabase {
   }
 
   async readGame(player) {
-    const queryText2 = 'SELECT * FROM game WHERE player = $1';
-    const res = await this.client.query(queryText2, [player]);
+    const queryText = 'SELECT * FROM game WHERE player = $1';
+    const res = await this.client.query(queryText, [player]);
     return res.rows;
   }
 
@@ -92,9 +91,9 @@ export class ScrabbleDatabase {
   }
 
   async updateGame(player, score) {
-    const queryText2 =
+    const queryText =
       'UPDATE game SET score = $2 WHERE player = $1 RETURNING *';
-    const res = await this.client.query(queryText2, [player, score]);
+    const res = await this.client.query(queryText, [player, score]);
     return res.rows;
   }
 
@@ -106,8 +105,8 @@ export class ScrabbleDatabase {
   }
 
   async deleteGame(player) {
-    const queryText2 = 'DELETE FROM game WHERE player = $1 RETURNING *';
-    const res = await this.client.query(queryText2, [player]);
+    const queryText = 'DELETE FROM game WHERE player = $1 RETURNING *';
+    const res = await this.client.query(queryText, [player]);
     return res.rows;
   }
 
@@ -120,8 +119,8 @@ export class ScrabbleDatabase {
   }
 
   async readAllGames() {
-    const queryText2 = 'SELECT * FROM game';
-    const res = await this.client.query(queryText2);
+    const queryText = 'SELECT * FROM game';
+    const res = await this.client.query(queryText);
     return res.rows;
   }
 }
