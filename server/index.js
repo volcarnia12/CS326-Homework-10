@@ -98,6 +98,7 @@ app.post('/wordScore', async (request, response) => {
   await database.connect();
   const { name, word, score } = request.body;
   let value = await database.createWord(name, word, score);
+  console.log(value);
   //await saveWordScore(name, word, score);
   response.status(200).json({ status: 'success' });
   await database.close();
