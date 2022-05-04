@@ -7,7 +7,7 @@ import { readFile, writeFile } from 'fs/promises';
 // SOLUTION BEGIN
 import logger from 'morgan';
 import 'dotenv/config';
-import { ScrabbleDatabase } from './wordDatabase';
+import { ScrabbleDatabase } from './wordDatabase.js';
 // SOLUTION END
 /** TEMPLATE BEGIN
 TODO: import the morgan middleware from 'morgan'

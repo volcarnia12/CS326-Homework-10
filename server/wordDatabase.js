@@ -38,12 +38,14 @@ export class ScrabbleDatabase {
         word varchar(30),
         score integer
       );
+      
+
 
       create table if not exists game (
         player varchar(30) primary key,
         score integer
       );
-        
+       
     `;
     const res = await this.client.query(queryText);
   }
