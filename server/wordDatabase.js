@@ -45,7 +45,7 @@ export class ScrabbleDatabase {
       );
     `;
     const res = await this.client.query(queryText);
-    const res2 = await this.client.query(queryText2);
+    //const res2 = await this.client.query(queryText2);
   }
 
   // Close the pool.

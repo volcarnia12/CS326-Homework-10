@@ -61,6 +61,8 @@ function saveToGameScoreFile(path) {
 const saveWordScore = saveToWordScoreFile(WORD_SCORE_FILE);
 const saveGameScore = saveToGameScoreFile(GAME_SCORE_FILE);
 
+
+
 async function top10WordScores() {
   const scores = await database.readAllWords(); // readWordScores();
   const sorted = scores.sort((a, b) => b.score - a.score);
