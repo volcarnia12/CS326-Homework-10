@@ -1,6 +1,7 @@
 import { Game } from './game.js';
 import * as utils from './scrabbleUtils.js';
 import { Rack } from './rack.js';
+import * as crud from './crud.js'; 
 
 // Fetch the dictionary from the server.
 const response = await fetch('dictionary.json');
@@ -64,13 +65,13 @@ renderGame(game);
 // SOLUTION BEGIN
 async function saveWordScore(name, word, score) {
   const data = JSON.stringify({ name, word, score });
-  const response = await fetch('/wordScore', {
+  const response = await crud.wordScore(name, word, score);/*fetch('/wordScore', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: data,
-  });
+  }); */
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
   }
@@ -91,7 +92,7 @@ function displayWordScore(name, word, score) {
 }
 
 async function displayScores() {
-  const wordScoresRequest = await fetch('/highestWordScores');
+  const wordScoresRequest = await crud.highestWordScores();//fetch('/highestWordScores');
   const wordScoresData = wordScoresRequest.ok
     ? await wordScoresRequest.json()
     : [];
@@ -116,7 +117,7 @@ async function displayScores() {
     document.getElementById('word-scores-table').appendChild(tr);
   }
 
-  const gameScoresRequest = await fetch('/highestGameScores');
+  const gameScoresRequest = await crud.highestGameScores();//fetch('/highestGameScores');
   const gameScoresData = gameScoresRequest.ok
     ? await gameScoresRequest.json()
     : [];
@@ -141,13 +142,13 @@ async function displayScores() {
 
 async function saveGameScore(name, score) {
   const data = JSON.stringify({ name, score });
-  const response = await fetch('/gameScore', {
+  const response = await crud.gameScore(name, score);/*fetch('/gameScore', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: data,
-  });
+  });*/
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
   }
