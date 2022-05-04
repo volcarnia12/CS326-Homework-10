@@ -125,13 +125,13 @@ export class ScrabbleDatabase {
   }
 
   async highestWordScores(){
-    const queryText = 'SELECT TOP 10 * FROM word ORDER BY score DESC';
+    const queryText = 'SELECT * FROM word ORDER BY score DESC LIMIT 10';
     const res = await this.client.query(queryText);
     return res.rows;
   }
 
   async highestGameScores(){
-    const queryText = 'SELECT TOP 10 * FROM game ORDER BY score DESC';
+    const queryText = 'SELECT * FROM game ORDER BY score DESC LIMIT 10';
     const res = await this.client.query(queryText);
     return res.rows;
   }

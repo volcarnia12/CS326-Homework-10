@@ -38,7 +38,7 @@ class ScrabbleServer {
     this.app.post('/gameScore', async (req, res) => {
       try {
         const { name, score } = req.query;
-        const person = await self.db.createWord(name, score);
+        const person = await self.db.createGame(name, score);
         res.send(JSON.stringify(person));
       } catch (err) {
         res.status(500).send(err);
