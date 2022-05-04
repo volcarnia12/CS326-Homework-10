@@ -97,9 +97,7 @@ TODO: Add the express.static middleware to the app.
 app.post('/wordScore', async (request, response) => {
   await database.connect();
   const { name, word, score } = request.body;
-  console.log("hi");
   let value = await database.createWord(name, word, score);
-  console.log("hi");
   //await saveWordScore(name, word, score);
   response.status(200).json({ status: 'success' });
   await database.close();

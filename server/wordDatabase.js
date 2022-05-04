@@ -34,14 +34,14 @@ export class ScrabbleDatabase {
   async init() {
     const queryText = `
       create table if not exists word (
-        player varchar(30) primary key,
+        player varchar(30),
         word varchar(30),
         score integer
       );
     `;
     const queryText2 = `
       create table if not exists game (
-        player varchar(30) primary key,
+        player varchar(30),
         score integer
       );
     `;
