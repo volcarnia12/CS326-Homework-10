@@ -38,16 +38,15 @@ export class ScrabbleDatabase {
         word varchar(30),
         score integer
       );
-      
-
-
+    `;
+    const queryText2 = `
       create table if not exists game (
         player varchar(30) primary key,
         score integer
       );
-       
     `;
     const res = await this.client.query(queryText);
+    const res2 = await this.client.query(queryText2);
   }
 
   // Close the pool.
@@ -65,9 +64,9 @@ export class ScrabbleDatabase {
   }
 
   async createGame(player, score) {
-    const queryText =
+    const queryText2 =
       'INSERT INTO game (player,score) VALUES ($1, $2) RETURNING *';
-    const res = await this.client.query(queryText, [player,score]);
+    const res = await this.client.query(queryText2, [player,score]);
     return res.rows;
   }
 
@@ -79,8 +78,8 @@ export class ScrabbleDatabase {
   }
 
   async readGame(player) {
-    const queryText = 'SELECT * FROM game WHERE player = $1';
-    const res = await this.client.query(queryText, [player]);
+    const queryText2 = 'SELECT * FROM game WHERE player = $1';
+    const res = await this.client.query(queryText2, [player]);
     return res.rows;
   }
 
@@ -93,9 +92,9 @@ export class ScrabbleDatabase {
   }
 
   async updateGame(player, score) {
-    const queryText =
+    const queryText2 =
       'UPDATE game SET score = $2 WHERE player = $1 RETURNING *';
-    const res = await this.client.query(queryText, [player, score]);
+    const res = await this.client.query(queryText2, [player, score]);
     return res.rows;
   }
 
@@ -107,8 +106,8 @@ export class ScrabbleDatabase {
   }
 
   async deleteGame(player) {
-    const queryText = 'DELETE FROM game WHERE player = $1 RETURNING *';
-    const res = await this.client.query(queryText, [player]);
+    const queryText2 = 'DELETE FROM game WHERE player = $1 RETURNING *';
+    const res = await this.client.query(queryText2, [player]);
     return res.rows;
   }
 
@@ -121,8 +120,8 @@ export class ScrabbleDatabase {
   }
 
   async readAllGames() {
-    const queryText = 'SELECT * FROM game';
-    const res = await this.client.query(queryText);
+    const queryText2 = 'SELECT * FROM game';
+    const res = await this.client.query(queryText2);
     return res.rows;
   }
 }

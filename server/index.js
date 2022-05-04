@@ -70,6 +70,7 @@ async function top10WordScores() {
 
 async function top10GameScores() {
   const scores = await database.readAllGames(); // readGameScores();
+  //console.log(scores);
   const sorted = scores.sort((a, b) => b.score - a.score);
   const top = sorted.slice(0, 10);
   return top;
