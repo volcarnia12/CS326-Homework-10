@@ -151,6 +151,7 @@ async function saveGameScore(name, score) {
     },
     body: data,
   });*/
+  console.log(response.ok);
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
   }
