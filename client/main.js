@@ -66,17 +66,7 @@ renderGame(game);
 async function saveWordScore(name, word, score) {
   console.log(name);
   const data = JSON.stringify({ name, word, score });
-  const response = await crud.wordScore(name, word, score);/*fetch('/wordScore', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: data,
-  }); 
-  
-  if (!response.ok) {
-    console.error(`Unable to save ${data} to server`);
-  } */
+  const response = await crud.wordScore(name, word, score);
 }
 
 function displayWordScore(name, word, score) {
@@ -94,11 +84,7 @@ function displayWordScore(name, word, score) {
 }
 
 async function displayScores() {
-  const wordScoresRequest = await crud.highestWordScores();//fetch('/highestWordScores');
-  /*const wordScoresData = wordScoresRequest.ok
-    ? await wordScoresRequest.json()
-    : [];*/
-
+  const wordScoresRequest = await crud.highestWordScores();
   // Reset word scores table
   const wordScores = document.getElementById('word-scores-table');
   while (wordScores.childNodes.length > 2) {
@@ -119,11 +105,7 @@ async function displayScores() {
     document.getElementById('word-scores-table').appendChild(tr);
   }
 
-  const gameScoresRequest = await crud.highestGameScores();//fetch('/highestGameScores');
-  /*const gameScoresData = gameScoresRequest.ok
-    ? await gameScoresRequest.json()
-    : [];*/
-  //console.log(gameScoresData); 
+  const gameScoresRequest = await crud.highestGameScores();
   // Reset game scores table
   const gameScores = document.getElementById('game-scores-table');
   while (gameScores.childNodes.length > 2) {
@@ -144,17 +126,7 @@ async function displayScores() {
 
 async function saveGameScore(name, score) {
   const data = JSON.stringify({ name, score });
-  const response = await crud.gameScore(name, score);/*fetch('/gameScore', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: data,
-  });
-  console.log(response);
-  if (!response.ok) {
-    console.error(`Unable to save ${data} to server`);
-  }*/
+  const response = await crud.gameScore(name, score);
 }
 
 displayScores();
@@ -209,20 +181,6 @@ document.getElementById('play').addEventListener('click', async () => {
         .join('');
       await saveWordScore(name, constructedWord, score);
       displayWordScore(name, constructedWord, score);
-      // SOLUTION END
-      /** TEMPLATE BEGIN
-      // TODO: Save the player's name, word, and score to the server. You will
-      //       need to use the `POST /wordScore` endpoint to do this. We
-      //       recommend you write functions to do this for you rather than
-      //       make calls to `fetch` directly in this function. For example:
-
-      //       `await saveWordScore(name, word, score);`
-
-      //       You will also want to update the word score table in the UI.
-      //       Again, we recommend a function for this. For example:
-
-      //       `displayWordScore(name, word, score);`
-      TEMPLATE END*/
 
       const used = utils.constructWord(rack.getAvailableTiles(), remaining);
       used.forEach((tile) => rack.removeTile(tile));
@@ -263,17 +221,4 @@ document.getElementById('end').addEventListener('click', async () => {
   console.log('Clicked end button');
   displayScores();
 });
-// END SOLUTION
-/** BEGIN TEMPLATE
-document.getElementById('end').addEventListener('click', async () => {
-  // TODO: Add a button whose id is `end` before you complete this method.
-  // TODO: Save the game scores to the server. You will need to use the
-  //      `POST /gameScore` endpoint to do this. We recommend you write
-  //      functions to do this for you rather than make calls to `fetch`
-  //     directly in this function. For example:
-  //
-  //     `await saveGameScore(name, score[i]);`
-  //
-  //      Where `i` is the i'th player.
-}); 
-END TEMPLATE */
+
