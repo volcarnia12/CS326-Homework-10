@@ -28,6 +28,7 @@ class ScrabbleServer {
     this.app.post('/wordScore', async (req, res) => {
       try {
         const { name, word, score} = req.query;
+        console.log(name);
         const person = await self.db.createWord(name, word, score);
         res.send(JSON.stringify(person));
       } catch (err) {

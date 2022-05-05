@@ -56,6 +56,7 @@ export class ScrabbleDatabase {
 
   // CREATE a user in the database.
   async createWord(player, word, score) {
+    console.log(player);
     const queryText =
       'INSERT INTO word (player,word,score) VALUES ($1, $2, $3) RETURNING *';
     const res = await this.client.query(queryText, [player,word,score]);
