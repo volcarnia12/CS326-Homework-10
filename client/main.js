@@ -110,7 +110,7 @@ async function displayScores() {
     const name = document.createElement('td');
     const word = document.createElement('td');
     const score = document.createElement('td');
-    name.innerText = wordScore.name;
+    name.innerText = wordScore.player;
     word.innerText = wordScore.word;
     score.innerText = wordScore.score;
     tr.appendChild(name);
@@ -134,7 +134,7 @@ async function displayScores() {
     const tr = document.createElement('tr');
     const name = document.createElement('td');
     const score = document.createElement('td');
-    name.innerText = gameScore.name;
+    name.innerText = gameScore.player;
     score.innerText = gameScore.score;
     tr.appendChild(name);
     tr.appendChild(score);
