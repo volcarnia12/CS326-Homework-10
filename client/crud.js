@@ -7,6 +7,7 @@ export async function wordScore(name, word, score) {
       }
     );
     const data = await response.json();
+    console.log(data);
     return data;
   }
 
