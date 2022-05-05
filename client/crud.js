@@ -1,4 +1,5 @@
 export async function wordScore(name, word, score) {
+  console.log(name);
     const response = await fetch(
       `/wordScore?player=${name}&word=${word}&score=${score}`,
       {

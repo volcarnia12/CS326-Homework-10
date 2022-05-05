@@ -64,6 +64,7 @@ renderGame(game);
 
 // SOLUTION BEGIN
 async function saveWordScore(name, word, score) {
+  console.log(name);
   const data = JSON.stringify({ name, word, score });
   const response = await crud.wordScore(name, word, score);/*fetch('/wordScore', {
     method: 'POST',
