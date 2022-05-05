@@ -27,9 +27,8 @@ class ScrabbleServer {
 
     this.app.post('/wordScore', async (req, res) => {
       try {
-        const { name, word, score} = req.query;
-        console.log(req.query.player);
-        const person = await self.db.createWord(name, word, score);
+        const { player, word, score} = req.query;
+        const person = await self.db.createWord(player, word, score);
         res.send(JSON.stringify(person));
       } catch (err) {
         res.status(500).send(err);
@@ -38,8 +37,8 @@ class ScrabbleServer {
 
     this.app.post('/gameScore', async (req, res) => {
       try {
-        const { name, score } = req.query;
-        const person = await self.db.createGame(name, score);
+        const { player, score } = req.query;
+        const person = await self.db.createGame(player, score);
         res.send(JSON.stringify(person));
       } catch (err) {
         res.status(500).send(err);
