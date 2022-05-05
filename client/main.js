@@ -123,7 +123,7 @@ async function displayScores() {
   /*const gameScoresData = gameScoresRequest.ok
     ? await gameScoresRequest.json()
     : [];*/
-  console.log(gameScoresData);
+  //console.log(gameScoresData); 
   // Reset game scores table
   const gameScores = document.getElementById('game-scores-table');
   while (gameScores.childNodes.length > 2) {
