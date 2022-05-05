@@ -135,4 +135,4 @@ export class ScrabbleDatabase {
     const res = await this.client.query(queryText);
     return res.rows;
   }
-}
+}//
