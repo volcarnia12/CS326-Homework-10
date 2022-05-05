@@ -1,6 +1,6 @@
 export async function wordScore(name, word, score) {
     const response = await fetch(
-      `/wordScore?name=${name}&word=${word}&score=${score}`,
+      `/wordScore?player=${name}&word=${word}&score=${score}`,
       {
         method: 'POST',
       }
@@ -11,7 +11,7 @@ export async function wordScore(name, word, score) {
 
   export async function gameScore(name, score) {
     const response = await fetch(
-      `/gameScore?name=${name}&score=${score}`,
+      `/gameScore?player=${name}&score=${score}`,
       {
         method: 'POST',
       }
