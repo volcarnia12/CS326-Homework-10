@@ -72,6 +72,7 @@ async function saveWordScore(name, word, score) {
     },
     body: data,
   }); */
+  
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
   }
@@ -121,7 +122,7 @@ async function displayScores() {
   const gameScoresData = gameScoresRequest.ok
     ? await gameScoresRequest.json()
     : [];
-
+  console.log(gameScoresData);
   // Reset game scores table
   const gameScores = document.getElementById('game-scores-table');
   while (gameScores.childNodes.length > 2) {
