@@ -72,11 +72,11 @@ async function saveWordScore(name, word, score) {
       'Content-Type': 'application/json',
     },
     body: data,
-  }); */
+  }); 
   
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
-  }
+  } */
 }
 
 function displayWordScore(name, word, score) {
@@ -95,9 +95,9 @@ function displayWordScore(name, word, score) {
 
 async function displayScores() {
   const wordScoresRequest = await crud.highestWordScores();//fetch('/highestWordScores');
-  const wordScoresData = wordScoresRequest.ok
+  /*const wordScoresData = wordScoresRequest.ok
     ? await wordScoresRequest.json()
-    : [];
+    : [];*/
 
   // Reset word scores table
   const wordScores = document.getElementById('word-scores-table');
@@ -105,7 +105,7 @@ async function displayScores() {
     wordScores.removeChild(wordScores.lastChild);
   }
 
-  for (const wordScore of wordScoresData) {
+  for (const wordScore of wordScoresRequest) {
     const tr = document.createElement('tr');
     const name = document.createElement('td');
     const word = document.createElement('td');
@@ -120,9 +120,9 @@ async function displayScores() {
   }
 
   const gameScoresRequest = await crud.highestGameScores();//fetch('/highestGameScores');
-  const gameScoresData = gameScoresRequest.ok
+  /*const gameScoresData = gameScoresRequest.ok
     ? await gameScoresRequest.json()
-    : [];
+    : [];*/
   console.log(gameScoresData);
   // Reset game scores table
   const gameScores = document.getElementById('game-scores-table');
@@ -130,7 +130,7 @@ async function displayScores() {
     gameScores.removeChild(gameScores.lastChild);
   }
 
-  for (const gameScore of gameScoresData) {
+  for (const gameScore of gameScoresRequest) {
     const tr = document.createElement('tr');
     const name = document.createElement('td');
     const score = document.createElement('td');
@@ -150,11 +150,11 @@ async function saveGameScore(name, score) {
       'Content-Type': 'application/json',
     },
     body: data,
-  });*/
+  });
   console.log(response);
   if (!response.ok) {
     console.error(`Unable to save ${data} to server`);
-  }
+  }*/
 }
 
 displayScores();
